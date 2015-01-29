@@ -1,1 +1,5 @@
-##Senior Project
+##Capstone Project
+
+* Reid Horuff
+* Brian Ufford
+* Garrison Ritchie
