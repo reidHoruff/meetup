@@ -65,6 +65,8 @@ def a_create_user(args):
   lastname = get(args, 'lastname')
   password = get(args, 'password')
   password2 = get(args, 'password2')
+  sex = get(args, 'sex')
+  age = get(args, 'age')
 
   username_policy = re.compile("^[a-zA-Z_0-9]+$")
 
@@ -112,6 +114,9 @@ def a_list_my_intersts(args, user):
 def a_get_profile(args, user):
   return fin(data=user.dump())
 
+def a_ping(args):
+  return fin('pong')
+
 actions = {
     'create_user': a_create_user,
     'login': a_login,
@@ -119,6 +124,7 @@ actions = {
     'set_interests': a_set_interests,
     'list_all_interests': a_list_all_intersts,
     'list_my_interests': a_list_my_intersts,
+    'ping': a_ping,
     }
 
 """

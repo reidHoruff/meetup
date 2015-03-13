@@ -7,6 +7,8 @@ class Usr(models.Model):
   password = models.CharField(max_length=100, blank=True)
   phoneid = models.CharField(max_length=100, blank=True)
   interests = models.ManyToManyField('Interest')
+  age = models.IntegerField()
+  is_male = models.BooleanField(default=True)
 
   @staticmethod
   def validate(username, password):
