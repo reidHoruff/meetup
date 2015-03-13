@@ -7,8 +7,8 @@ import re
 helpers...
 """
 
-def fail(msg='unknown error'):
-  return {'success': False, 'msg': msg}
+def fail(msg='unknown error', err=0):
+  return {'success': False, 'msg': msg, 'err': err}
 
 def fin(msg='operation completed', data={}):
   return {'success': True, 'msg': msg, 'data': data}
@@ -71,25 +71,41 @@ def a_create_user(args):
   username_policy = re.compile("^[a-zA-Z_0-9]+$")
 
   if len(username) < 1:
-    return fail('Username cannot be empty')
+    return fail('Username cannot be empty', 1)
 
   if not username_policy.match(username):
-    return fail("'%s' is not a valid username" % username)
+    return fail("'%s' is not a valid username" % username, 2)
 
   if not Usr.username_available(username):
-    return fail("Username '%s' is not available" % username)
+    return fail("Username '%s' is not available" % username, 3)
 
   if password != password2:
-    return fail('Passwords do not match')
+    return fail('Passwords do not match', 4)
 
   if len(password) < 4:
-    return fail('Password is too short')
+    return fail('Password is too short', 5)
+
+  if sex not in ['m', 'f'] or not age.isdigit():
+    return fail('invalid sex choice', 6)
+
+  if not age.isdigit():
+    fail('age must be integer', 7)
+
+  age = int(age)
+
+  if age < 13:
+    return fail('you must be at least 13 years old to use this service', 8)
+
+  if age > 120:
+    return fail('I don\'t believe that you are over 120 years old', 9)
 
   user = Usr.objects.create(
     firstname=firstname, 
     lastname=lastname, 
     username=username, 
-    password=password
+    password=password,
+    sex=(sex=='m'),
+    age=age
   )
 
   return fin('user created', user.dump())
