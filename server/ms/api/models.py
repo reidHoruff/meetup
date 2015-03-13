@@ -28,6 +28,15 @@ class Usr(models.Model):
     for interests in interest_objects:
       self.interests.add(interests)
 
+  def dump(self):
+    return {
+        'username': self.username,
+        'firstname': self.firstname,
+        'lastname': self.lastname,
+        'phoneid': self.phoneid,
+        }
+
+
   def __unicode__(self):
     return self.username
 
