@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Capstone</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_events_screen">events_screen</string>
+    <string name="title_activity_home_screen">home_screen</string>
+    <string name="title_activity_matches_screen">matches_screen</string>
+
+</resources>

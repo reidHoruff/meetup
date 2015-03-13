@@ -1,4 +1,4 @@
-package com.example.brian.capstoneproject;
+package com.example.garrison.capstone;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -7,6 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.garrison.capstone.profile_screen;
+import com.example.garrison.capstone.R;
+import com.example.garrison.capstone.events_screen;
+import com.example.garrison.capstone.matches_screen;
+import com.example.garrison.capstone.profile_screen;
 
 
 public class home_screen extends ActionBarActivity {
@@ -37,7 +43,7 @@ public class home_screen extends ActionBarActivity {
             public void onClick(View v) {
                 Intent i = new Intent(
                         home_screen.this,
-                        ProfileScreen.class);
+                        profile_screen.class);
                 startActivity(i);
             }
         });

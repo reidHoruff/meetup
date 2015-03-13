@@ -30,8 +30,8 @@
         android:text="Profile"
         android:id="@+id/btnProfile"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/txtEvents"
-        android:layout_toStartOf="@+id/txtEvents" />
+        android:layout_toRightOf="@+id/txtEvents"
+        android:layout_toEndOf="@+id/txtEvents" />
 
     <Button
         android:layout_width="wrap_content"
@@ -39,6 +39,6 @@
         android:text="Matches"
         android:id="@+id/btnMatches"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/txtEvents"
-        android:layout_toEndOf="@+id/txtEvents" />
+        android:layout_toLeftOf="@+id/txtEvents"
+        android:layout_toStartOf="@+id/txtEvents" />
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.garrison.capston;
+package com.example.garrison.capstone;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -36,7 +36,7 @@ public class matches_screen extends ActionBarActivity {
             public void onClick(View v) {
                 Intent i = new Intent(
                         matches_screen.this,
-                        ProfileScreen.class);
+                        profile_screen.class);
                 startActivity(i);
             }
         });

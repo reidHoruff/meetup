@@ -1,4 +1,4 @@
-package com.example.garrison.capston;
+package com.example.garrison.capstone;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -8,8 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.garrison.capstone.R;
 
-public class ProfileScreen extends ActionBarActivity {
+
+public class profile_screen extends ActionBarActivity {
 
     Button btnMatches, btnEvents;
 
@@ -25,7 +27,7 @@ public class ProfileScreen extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(
-                        ProfileScreen.this,
+                        profile_screen.this,
                         events_screen.class);
                 startActivity(i);
             }
@@ -35,7 +37,7 @@ public class ProfileScreen extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(
-                        ProfileScreen.this,
+                        profile_screen.this,
                         matches_screen.class);
                 startActivity(i);
             }
