@@ -64,7 +64,6 @@ def a_create_user(args):
   firstname = get(args, 'firstname')
   lastname = get(args, 'lastname')
   password = get(args, 'password')
-  password2 = get(args, 'password2')
   sex = get(args, 'sex')
   age = get(args, 'age')
 
@@ -78,9 +77,6 @@ def a_create_user(args):
 
   if not Usr.username_available(username):
     return fail("Username '%s' is not available" % username, 3)
-
-  if password != password2:
-    return fail('Passwords do not match', 4)
 
   if len(password) < 4:
     return fail('Password is too short', 5)
@@ -104,7 +100,7 @@ def a_create_user(args):
     lastname=lastname, 
     username=username, 
     password=password,
-    sex=(sex=='m'),
+    is_male=(sex=='m'),
     age=age
   )
 

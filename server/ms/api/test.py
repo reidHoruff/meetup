@@ -21,7 +21,6 @@ args = {
   'firstname': 'reid',
   'lastname': 'horuff',
   'password': 'foobar',
-  'password2': 'foobar',
   'sex': 'm',
   'age': '12'
 }
@@ -37,23 +36,10 @@ args = {
   'firstname': 'reid',
   'lastname': 'horuff',
   'password': 'foobar',
-  'password2': 'foobar',
   'sex': 'm',
   'age': '12'
 }
 assert_error(args, 2)
-
-# passwords dont match
-args = {
-  'username': 'reid',
-  'firstname': 'reid',
-  'lastname': 'horuff',
-  'password': 'foobar',
-  'password2': 'foobars',
-  'sex': 'm',
-  'age': '12'
-}
-assert_error(args, 4)
 
 # password too short
 args = {
@@ -61,7 +47,6 @@ args = {
   'firstname': 'reid',
   'lastname': 'horuff',
   'password': 'foo',
-  'password2': 'foo',
   'sex': 'm',
   'age': '12'
 }
@@ -74,7 +59,6 @@ args = {
   'firstname': 'reid',
   'lastname': 'horuff',
   'password': 'foobar',
-  'password2': 'foobar',
   'sex': 'q',
   'age': '12'
 }
@@ -86,7 +70,6 @@ args = {
   'firstname': 'reid',
   'lastname': 'horuff',
   'password': 'foobar',
-  'password2': 'foobar',
   'sex': 'm',
   'age': 'xxx'
 }
@@ -98,7 +81,6 @@ args = {
   'firstname': 'reid',
   'lastname': 'horuff',
   'password': 'foobar',
-  'password2': 'foobar',
   'sex': 'm',
   'age': '5'
 }
@@ -110,7 +92,6 @@ args = {
   'firstname': 'reid',
   'lastname': 'horuff',
   'password': 'foobar',
-  'password2': 'foobar',
   'sex': 'm',
   'age': '120'
 }
