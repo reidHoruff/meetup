@@ -6,4 +6,15 @@
     <string name="title_activity_create_account">CreateAccountActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home_drawer">HomeDrawerActivity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
 </resources>

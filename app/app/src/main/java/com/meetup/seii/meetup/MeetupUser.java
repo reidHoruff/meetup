@@ -18,4 +18,15 @@ public class MeetupUser {
         this.age = age;
         this.password = password;
     }
+    
+    public boolean isShill() {
+        return this.username == null || this.username.equals("");
+    }
+
+    public String toString() {
+       return "user: "
+               + this.username
+               + " - "
+               + this.password;
+    }
 }

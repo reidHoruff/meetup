@@ -14,6 +14,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -31,7 +33,7 @@ import org.json.simple.parser.ParseException;
 public class ServerCommunicator {
     HttpClient httpclient = null;
     private ServerCommunicatable client;
-    final static String ADDRESS = "http://192.168.0.10:8000";
+    final static String ADDRESS = "http://192.168.0.20:8000";
     private String devID = null;
 
     public ServerCommunicator(ServerCommunicatable client) {
@@ -54,6 +56,19 @@ public class ServerCommunicator {
                 .appendQueryParameter("age", user.age);
 
         new CreateUserRequestTask(this.client).execute(builder.build().toString());
+    }
+
+    public void fetchAllIntersts() {
+        Uri.Builder builder = getBaseURIBuilder("list_all_interests");
+        new GetAllInterestsRequestTask(this.client).execute(builder.build().toString());
+    }
+
+    public void loginUser(String username, String password) {
+        Uri.Builder builder = getBaseURIBuilder("login")
+                .appendQueryParameter("username", username)
+                .appendQueryParameter("password", password);
+
+        new LoginRequestTask(this.client).execute(builder.build().toString());
     }
 }
 
@@ -145,7 +160,6 @@ class CreateUserRequestTask extends RequestTask {
     @Override
     protected void notify(ResponseStatus status, JSONObject json) {
         if (status == ResponseStatus.SUCCESS) {
-            Log.i("REST", "doing stuff");
             this.activity.createUserResponse(
                     status,
                     this.isSuccess(),
@@ -156,13 +170,42 @@ class CreateUserRequestTask extends RequestTask {
     }
 }
 
-class FetchAllInterestsRequestTask extends RequestTask {
-    public FetchAllInterestsRequestTask(ServerCommunicatable activity) {
+class GetAllInterestsRequestTask extends RequestTask {
+    public GetAllInterestsRequestTask(ServerCommunicatable activity) {
         super(activity);
     }
 
     @Override
     protected void notify(ResponseStatus status, JSONObject json) {
-        //...
+        if (status == ResponseStatus.SUCCESS) {
+            ArrayList<Interest> interests = new ArrayList<Interest>();
+            JSONObject data = (JSONObject)json.get("data");
+            Iterator iterator = data.keySet().iterator();
+
+            while (iterator.hasNext()) {
+                String key = (String)iterator.next();
+                String value = (String)data.get(key);
+                Interest interest = new Interest(key, value);
+                interests.add(interest);
+            }
+            this.activity.listAllInterestsResponse(status, interests);
+        } else {
+            this.activity.listAllInterestsResponse(status, null);
+        }
+    }
+}
+
+class LoginRequestTask extends RequestTask {
+    public LoginRequestTask(ServerCommunicatable activity) {
+        super(activity);
+    }
+
+    @Override
+    protected void notify(ResponseStatus status, JSONObject json) {
+        /**
+         * success field is only true if usermame/password
+         * is correct, not only if the request is successful.
+         */
+        this.activity.loginResponse(status, this.isSuccess());
     }
 }

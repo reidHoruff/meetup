@@ -14,6 +14,7 @@ public class CreateAccountActivity extends ServerCommunicatableActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+        this.comm.fetchAllIntersts();
     }
 
     public void loginButtonClicked(View view) {
@@ -57,6 +58,7 @@ public class CreateAccountActivity extends ServerCommunicatableActivity {
         if (status == ResponseStatus.SUCCESS) {
             if (success) {
                 MeetupSingleton.get().saveUser(this);
+                MeetupSingleton.get().setHasLoggedInBefore(this, true);
                 startActivity(new Intent(this, WelcomeActivity.class));
             } else {
                 showToast(message);

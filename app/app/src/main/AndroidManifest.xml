@@ -30,6 +30,14 @@
             android:name=".WelcomeActivity"
             android:label="@string/title_activity_welcome" >
         </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name=".HomeDrawerActivity"
+            android:label="@string/title_activity_home_drawer" >
+        </activity>
     </application>
 
 </manifest>

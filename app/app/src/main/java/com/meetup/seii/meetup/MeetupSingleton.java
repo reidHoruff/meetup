@@ -12,8 +12,28 @@ public class MeetupSingleton {
 
     private MeetupUser user;
 
+    private boolean isUserVerified, loginFailed;
+
     private MeetupSingleton() {
         this.user = null;
+        this.isUserVerified = false;
+        this.loginFailed = false;
+    }
+
+    public void setLoginFailed(boolean f) {
+        this.loginFailed = f;
+    }
+
+    public boolean getLoginFailed() {
+        return this.loginFailed;
+    }
+
+    public void setUserIsVerified(boolean v) {
+        this.isUserVerified = v;
+    }
+
+    public boolean isUserVerified() {
+        return this.isUserVerified;
     }
 
     public static MeetupSingleton get() {
@@ -52,7 +72,20 @@ public class MeetupSingleton {
         user.password = prefs.getString("com.meetup.app.password", null);
         user.sex = prefs.getString("com.meetup.app.sex", null);
         user.age = prefs.getString("com.meetup.app.age", null);
+
         this.user = user;
+    }
+
+    public boolean hasLoggedInBefore(Activity activity) {
+        SharedPreferences prefs = activity.getSharedPreferences("com.meetup.app", Context.MODE_PRIVATE);
+        return prefs.getBoolean("com.meetup.app.has_logged_in", false);
+    }
+
+    public void setHasLoggedInBefore(Activity activity, boolean hasLoggedIn) {
+        SharedPreferences prefs = activity.getSharedPreferences("com.meetup.app", Context.MODE_PRIVATE);
+        prefs.edit()
+                .putBoolean("com.meetup.app.has_logged_in", hasLoggedIn)
+                .apply();
     }
 
     public void logout(Activity activity) {

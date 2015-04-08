@@ -1,6 +1,7 @@
 package com.meetup.seii.meetup;
 
 import android.app.Activity;
+import android.opengl.Visibility;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
