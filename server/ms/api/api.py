@@ -50,14 +50,9 @@ def validate(action):
 handlers...
 """
 
-def a_login(args):
-  username = get(args, 'username')
-  password = get(args, 'password')
-
-  if Usr.validate(username=username, password=password):
-    return fin('login success')
-  else:
-    return fail('login failure')
+@validate
+def a_login(args, user):
+  return fin('login successful', user.dump())
 
 def a_create_user(args):
   username = get(args, 'username')

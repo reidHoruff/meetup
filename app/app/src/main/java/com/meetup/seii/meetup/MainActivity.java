@@ -42,8 +42,7 @@ public class MainActivity extends ServerCommunicatableActivity {
          */
         else {
             Log.i("SPL", "attempting to login..");
-            //this.comm.loginUser(user.username, user.password);
-            this.delayToLogin();
+            this.comm.loginUser(user.username, user.password);
         }
     }
 

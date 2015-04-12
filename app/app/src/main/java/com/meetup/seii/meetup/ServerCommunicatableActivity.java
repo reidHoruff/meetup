@@ -33,6 +33,6 @@ public class ServerCommunicatableActivity extends Activity implements ServerComm
     public void listAllInterestsResponse(ResponseStatus status, ArrayList<Interest> interests) {
     }
 
-    public void loginResponse(ResponseStatus status, boolean success) {
+    public void loginResponse(ResponseStatus status, MeetupUser user) {
     }
 }

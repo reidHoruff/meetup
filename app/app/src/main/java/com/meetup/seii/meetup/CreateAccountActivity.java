@@ -58,6 +58,8 @@ public class CreateAccountActivity extends ServerCommunicatableActivity {
         if (status == ResponseStatus.SUCCESS) {
             if (success) {
                 MeetupSingleton.get().saveUser(this);
+                MeetupSingleton.get().setLoginFailed(false);
+                MeetupSingleton.get().setUserIsVerified(true);
                 MeetupSingleton.get().setHasLoggedInBefore(this, true);
                 startActivity(new Intent(this, WelcomeActivity.class));
             } else {

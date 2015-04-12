@@ -202,10 +202,11 @@ class LoginRequestTask extends RequestTask {
 
     @Override
     protected void notify(ResponseStatus status, JSONObject json) {
-        /**
-         * success field is only true if usermame/password
-         * is correct, not only if the request is successful.
-         */
-        this.activity.loginResponse(status, this.isSuccess());
+        if (status == ResponseStatus.SUCCESS && this.isSuccess()) {
+            JSONObject data = (JSONObject)json.get("data");
+            this.activity.loginResponse(status, user);
+        } else {
+            this.activity.loginResponse(status, null);
+        }
     }
 }

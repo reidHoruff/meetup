@@ -16,6 +16,19 @@ class Usr(models.Model):
 
   @staticmethod
   def get_user(username, password):
+      try:
+        return Usr.objects.get(username=username, password=password)
+      except:
+          return None
+
+  def get_sex(self):
+    return {
+        True: 'm',
+        False: 'f'
+    }[self.is_male]
+
+  @staticmethod
+  def get_user(username, password):
     try:
       return Usr.objects.get(username=username, password=password)
     except:
@@ -36,8 +49,9 @@ class Usr(models.Model):
         'firstname': self.firstname,
         'lastname': self.lastname,
         'phoneid': self.phoneid,
-        }
-
+        'sex': self.get_sex(),
+        'age': self.age,
+    }
 
   def __unicode__(self):
     return self.username

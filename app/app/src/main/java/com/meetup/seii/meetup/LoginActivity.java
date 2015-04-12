@@ -21,6 +21,8 @@ public class LoginActivity extends ServerCommunicatableActivity {
     public void loginButtonClicked(View view) {
         String username = Helper.getButtonText(this, R.id.li_username);
         String password = Helper.getButtonText(this, R.id.li_pw);
+        MeetupUser user = new MeetupUser(username, password);
+        MeetupSingleton.get().setUser(user);
         this.comm.loginUser(username, password);
     }
 
@@ -41,12 +43,18 @@ public class LoginActivity extends ServerCommunicatableActivity {
     }
 
     @Override
-    public void loginResponse(ResponseStatus status, boolean success) {
+    public void loginResponse(ResponseStatus status, MeetupUser user) {
         if (status != ResponseStatus.SUCCESS) {
             showToast("Server Error");
-        } else if (success) {
-            MeetupSingleton.get().setLoginFailed(false);
-            MeetupSingleton.get().setUserIsVerified(true);
+        } else if (user != null) {
+            MeetupUser shill = MeetupSingleton.get().getUser();
+            MeetupSingleton.get()
+                .setLoginFailed(false)
+                .setUserIsVerified(true)
+                .setHasLoggedInBefore(this, true)
+                .setUser(user)
+                .saveUser(this);
+
             this.hideError();
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
         } else {
