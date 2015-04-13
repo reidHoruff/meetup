@@ -204,7 +204,7 @@ class LoginRequestTask extends RequestTask {
     protected void notify(ResponseStatus status, JSONObject json) {
         if (status == ResponseStatus.SUCCESS && this.isSuccess()) {
             JSONObject data = (JSONObject)json.get("data");
-            this.activity.loginResponse(status, user);
+            this.activity.loginResponse(status, new MeetupUser(data));
         } else {
             this.activity.loginResponse(status, null);
         }

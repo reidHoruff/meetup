@@ -38,6 +38,10 @@
             android:name=".HomeDrawerActivity"
             android:label="@string/title_activity_home_drawer" >
         </activity>
+        <activity
+            android:name=".HomeFragmentActivity"
+            android:label="@string/title_activity_home_fragment" >
+        </activity>
     </application>
 
 </manifest>

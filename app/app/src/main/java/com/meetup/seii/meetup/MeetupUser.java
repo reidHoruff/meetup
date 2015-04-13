@@ -9,7 +9,6 @@ public class MeetupUser {
     public String firstName, lastName, sex, username, password, age;
 
     public MeetupUser() {
-
     }
 
     public MeetupUser(String username, String fname, String lname, String sex, String age, String password) {
@@ -30,17 +29,27 @@ public class MeetupUser {
      * create User from json blob from server
      * @param json
      */
-    public MeetupUser createFromJSON(JSONObject json) {
-        JSONObject data = (JSONObject)json.get("data");
+    public MeetupUser(JSONObject data) {
         this.username = (String)data.get("username");
         this.firstName = (String)data.get("firstname");
         this.lastName = (String)data.get("lastname");
         this.sex = (String)data.get("sex");
         this.age = (String)data.get("age");
-        //this.password = (String)data.get("password");
+    }
+
+    public MeetupUser pullFrom(MeetupUser other) {
+        if (Helper.uslessString(this.firstName)) this.firstName = other.firstName;
+        if (Helper.uslessString(this.lastName)) this.lastName = other.lastName;
+        if (Helper.uslessString(this.username)) this.username = other.username;
+        if (Helper.uslessString(this.password)) this.password = other.password;
+        if (Helper.uslessString(this.sex)) this.sex = other.sex;
+        if (Helper.uslessString(this.age)) this.age = other.age;
         return this;
     }
 
+    /*
+    is this object capable of authing itself
+     */
     public boolean isShill() {
         return
                 this.username == null ||
