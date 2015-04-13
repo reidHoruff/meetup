@@ -74,15 +74,15 @@ public class MainActivity extends ServerCommunicatableActivity {
         int secondsDelayed = 2;
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                startActivity(new Intent(MainActivity.this, HomeFragmentActivity.class));
                 finish();
             }
         }, secondsDelayed * 1000);
     }
 
     @Override
-    public void loginResponse(ResponseStatus status, boolean success) {
-        if (success) {
+    public void loginResponse(ResponseStatus status, MeetupUser user) {
+        if (user != null) {
             // to home page...
             Log.i("SPL", "login success..");
             MeetupSingleton.get().setLoginFailed(false);

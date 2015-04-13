@@ -18,4 +18,8 @@ public class Helper {
         RadioButton radio = (RadioButton)activity.findViewById(id);
         return radio.isChecked();
     }
+
+    public static boolean uslessString(String s) {
+        return s == null || s.equals("");
+    }
 }

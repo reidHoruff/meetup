@@ -103,6 +103,8 @@ public class MeetupSingleton {
         this.user = new MeetupUser();
         this.saveUser(activity);
         this.user = null;
+        this.setUserIsVerified(false);
+        this.setLoginFailed(false);
         return this;
     }
 }
