@@ -33,8 +33,7 @@ import org.json.simple.parser.ParseException;
 public class ServerCommunicator {
     HttpClient httpclient = null;
     private ServerCommunicatable client;
-    final static String ADDRESS = "http://192.168.0.20:8000";
-    private String devID = null;
+    final static String ADDRESS = "http://reidhoruff.webfactional.com";
 
     public ServerCommunicator(ServerCommunicatable client) {
         this.client = client;

@@ -29,6 +29,14 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp" />
 
+        <TextView
+            android:layout_width="316dp"
+            android:layout_height="wrap_content"
+            android:textColor="#00c78c"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor porttitor est, nec elementum tortor viverra eget. Aenean sit amet metus faucibus, maximus nunc sed, semper sem. Praesent at arcu ut nisi gravida tempus. Morbi auctor arcu tortor, nec consectetur lectus venenatis eget. Duis nisi dui, molestie sed imperdiet non, feugiat sit amet metus. Sed sed ullamcorper enim. Aenean feugiat diam sit amet massa aliquam ullamcorper."
+            android:id="@+id/welcomeText"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18dp" />
 
         <Button
             android:layout_width="270dp"
@@ -39,7 +47,7 @@
             android:background="#00c78c"
             android:textColor="#FFFFFF"
             android:layout_marginTop="24dp"
-            android:onClick="createAccountButtonClicked" />
+            android:onClick="coolStoryButtonClicked" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by reid on 29/03/15.
  */
@@ -12,6 +14,7 @@ public class MeetupSingleton {
     private static MeetupSingleton instance = null;
 
     private MeetupUser user;
+    private ArrayList<Interest> interests, allInterests;
 
     private boolean isUserVerified, loginFailed;
 
@@ -19,6 +22,8 @@ public class MeetupSingleton {
         this.user = null;
         this.isUserVerified = false;
         this.loginFailed = false;
+        this.interests = new ArrayList<>();
+        this.allInterests = new ArrayList<>();
     }
 
     public MeetupSingleton setLoginFailed(boolean f) {
@@ -107,4 +112,19 @@ public class MeetupSingleton {
         this.setLoginFailed(false);
         return this;
     }
+
+    public void addInterest(Interest i) {
+        this.interests.add(i);
+    }
+
+    public void setInterests(ArrayList<Interest> interests) {
+        this.interests.clear();
+        this.interests = interests;
+    }
+
+    public void setAllInterests(ArrayList<Interest> interests) {
+        this.allInterests.clear();
+        this.allInterests = interests;
+    }
+
 }
