@@ -114,7 +114,7 @@ def a_list_all_intersts(args):
 
 @validate
 def a_list_my_intersts(args, user):
-  interests = {i.id: i.name for i in user.interests}
+  interests = {i.id: i.name for i in user.interests.all()}
   return fin(data=interests)
 
 @validate
