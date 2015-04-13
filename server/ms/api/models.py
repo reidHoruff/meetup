@@ -50,7 +50,7 @@ class Usr(models.Model):
         'lastname': self.lastname,
         'phoneid': self.phoneid,
         'sex': self.get_sex(),
-        'age': self.age,
+        'age': str(self.age),
     }
 
   def __unicode__(self):
