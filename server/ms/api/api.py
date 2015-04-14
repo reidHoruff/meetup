@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from easy.decorators import *
 from models import *
+from random import randint
 import re
 
 """
@@ -119,7 +120,56 @@ def a_list_my_intersts(args, user):
 
 @validate
 def a_get_profile(args, user):
-  return fin(data=user.dump())
+  id = get(args, 'uid')
+  if id:
+    return fin(data=Usr.objects.get(id=id).dump())
+  else:
+    return fin(data=user.dump())
+
+@validate
+def a_get_matches(args, user):
+  pass
+
+def create_user_from_file(fname, is_male):
+  fnames = open(fname)
+  for n in fnames:
+    ns = n.strip().split(' ')
+    print ns[0], ns[1]
+    u = Usr.objects.create(firstname=ns[0], lastname=ns[1], is_male=is_male, age=randint(20, 30), username=ns[0]+ns[1], password="pass")
+    ints = Interest.objects.order_by('?')[:randint(15, 40)]
+    u.interests.add(*ints)
+
+def a_readin(args):
+  Interest.objects.all().delete()
+  Usr.objects.all().delete()
+
+  fint = open('interests')
+  interests = list()
+  for i in fint:
+    i = i.strip()
+    interests.append(i)
+    Interest.objects.create(name=i)
+
+  create_user_from_file('female_names', False)
+  create_user_from_file('male_names', True)
+  return fin("readin complete")
+
+@validate
+def a_send_message(args, user):
+  body = get(args, 'body')
+  rid = get(args, 'rid')
+  try:
+    receiver = Usr.objects.get(id=rid)
+    user.send_message(body, receiver)
+    return fin('message sent')
+  except:
+    return fail('Message failed to send')
+
+@validate
+def a_get_thread(args, user):
+  oid = get(args, 'oid')
+  other = Usr.objects.get(id=oid)
+  return fin(data=user.get_message_thread(other))
 
 def a_ping(args):
   return fin('pong')
@@ -131,7 +181,11 @@ actions = {
     'set_interests': a_set_interests,
     'list_all_interests': a_list_all_intersts,
     'list_my_interests': a_list_my_intersts,
+    'get_matches': a_get_matches,
     'ping': a_ping,
+    'readin': a_readin,
+    'send_message': a_send_message,
+    'get_thread': a_get_thread,
     }
 
 """

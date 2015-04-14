@@ -14,13 +14,6 @@ class Usr(models.Model):
   def validate(username, password):
     return Usr.objects.filter(username=username).filter(password=password).count() == 1
 
-  @staticmethod
-  def get_user(username, password):
-      try:
-        return Usr.objects.get(username=username, password=password)
-      except:
-          return None
-
   def get_sex(self):
     return {
         True: 'm',
@@ -46,15 +39,54 @@ class Usr(models.Model):
   def dump(self):
     return {
         'username': self.username,
+        'id': str(self.id),
         'firstname': self.firstname,
         'lastname': self.lastname,
         'phoneid': self.phoneid,
         'sex': self.get_sex(),
         'age': str(self.age),
+        'interests': self.dump_interests(),
+        'matches': self.find_friends(),
     }
 
+  def get_message_thread(self, other):
+    messages = list(Message.objects.filter(sender=self, receiver=other).all()) + list(Message.objects.filter(sender=other, receiver=self).all())
+    thread = list()
+    for m in messages:
+      thread.append((m.from_me(self), m.body, str(m.time)))
+    return thread
+
+  def dump_interests(self):
+    i = {}
+    for interest in self.interests.all():
+      i[interest.id] = interest.name
+    return i
+
+  def find_friends(self):
+    int_ids = set()
+    for i in self.interests.all():
+      int_ids.add(i.id)
+
+    matches = []
+    for u in Usr.objects.all():
+      s = u.score(int_ids)
+      if s:
+        matches.append((u.id, s))
+
+    return sorted(matches, key=lambda t: t[1], reverse=True)[:50]
+
+  def score(self, int_id_set):
+    score = 0
+    for i in self.interests.all():
+      if i.id in int_id_set:
+        score += 1
+    return score
+
+  def send_message(self, body, receiver):
+    Message.objects.create(sender=self, receiver=receiver, body=body)
+
   def __unicode__(self):
-    return self.username
+    return "%s (%s)" % (self.username, self.id)
 
 class Interest(models.Model):
   name = models.CharField(max_length=20, unique=True, blank=False)
@@ -66,5 +98,14 @@ class Interest(models.Model):
   def __unicode__(self):
     return "%s (%s)" % (self.name, self.id)
 
+class Message(models.Model):
+  sender = models.ForeignKey('Usr', related_name='messages_sent')
+  receiver = models.ForeignKey('Usr', related_name='messages_received')
+  body = models.CharField(max_length=1000, blank=False)
+  time = models.TimeField(auto_now_add=True)
 
+  def from_me(self, me):
+    return  bool(self.sender.id == me.id)
 
+  def __unicode__(self):
+    return "from: %s to: %s" % (self.sender.username, self.receiver.username)

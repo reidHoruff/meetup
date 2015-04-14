@@ -3,3 +3,4 @@ from models import *
 
 admin.site.register(Usr)
 admin.site.register(Interest)
+admin.site.register(Message)
