@@ -35,4 +35,7 @@ public class ServerCommunicatableActivity extends Activity implements ServerComm
 
     public void loginResponse(ResponseStatus status, MeetupUser user) {
     }
+
+    public void updateInterestsResponse(ResponseStatus status, boolean success) {
+    }
 }

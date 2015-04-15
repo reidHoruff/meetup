@@ -1,7 +1,10 @@
 package com.meetup.seii.meetup;
 
+import android.util.Log;
+
 import org.json.simple.JSONObject;
 
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -9,11 +12,14 @@ import java.util.Iterator;
  */
 public class MeetupUser {
     public String firstName, lastName, sex, username, password, age;
+    private HashMap<String, Interest> interestMap;
 
     public MeetupUser() {
+        this.interestMap = new HashMap<>();
     }
 
     public MeetupUser(String username, String fname, String lname, String sex, String age, String password) {
+        this();
         this.firstName = fname;
         this.lastName = lname;
         this.sex = sex;
@@ -23,6 +29,7 @@ public class MeetupUser {
     }
 
     public MeetupUser(String username, String password) {
+        this();
         this.username = username;
         this.password = password;
     }
@@ -32,6 +39,7 @@ public class MeetupUser {
      * @param json
      */
     public MeetupUser(JSONObject data) {
+        this();
         this.username = (String)data.get("username");
         this.firstName = (String)data.get("firstname");
         this.lastName = (String)data.get("lastname");
@@ -44,7 +52,8 @@ public class MeetupUser {
         while (iterator.hasNext()) {
             String key = (String)iterator.next();
             String value = (String)interests.get(key);
-
+            this.interestMap.put(key, new Interest(key, value));
+            Log.i("REST", key + " : " + value);
         }
     }
 
@@ -56,6 +65,10 @@ public class MeetupUser {
         if (Helper.uslessString(this.sex)) this.sex = other.sex;
         if (Helper.uslessString(this.age)) this.age = other.age;
         return this;
+    }
+
+    public HashMap<String, Interest> getInterestMap() {
+        return this.interestMap;
     }
 
     /*

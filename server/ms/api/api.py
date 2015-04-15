@@ -104,7 +104,10 @@ def a_create_user(args):
 
 @validate
 def a_set_interests(args, user):
-  ids = map(int, get(args, 'ids').split(","))
+  strids = get(args, 'ids')
+  ids = []
+  if strids:
+    ids = map(int, strids.split(","))
   interests = Interest.from_ids(ids)
   user.set_interests(interests)
   return fin("interests updated")

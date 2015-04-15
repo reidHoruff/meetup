@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -24,7 +25,8 @@ public class HomeFragmentActivity extends FragmentActivity implements ServerComm
         setContentView(R.layout.activity_home_fragment);
 
         this.comm = new ServerCommunicator(this);
-        this.comm.fetchAllIntersts();
+        Log.i("REST", "updating interests.......");
+        this.comm.updateInterestsOfUser(MeetupSingleton.get().getUser());
 
         HomeSectionsPagerAdapter pageAdapter = new HomeSectionsPagerAdapter(getSupportFragmentManager());
         ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -80,6 +82,10 @@ public class HomeFragmentActivity extends FragmentActivity implements ServerComm
     }
 
     public void loginResponse(ResponseStatus status, MeetupUser user) {
+        //...
+    }
+
+    public void updateInterestsResponse(ResponseStatus status, boolean success) {
         //...
     }
 }

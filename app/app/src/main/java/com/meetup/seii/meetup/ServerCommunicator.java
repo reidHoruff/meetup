@@ -16,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -68,6 +69,24 @@ public class ServerCommunicator {
                 .appendQueryParameter("password", password);
 
         new LoginRequestTask(this.client).execute(builder.build().toString());
+    }
+
+    public void updateInterestsOfUser(MeetupUser user) {
+        Uri.Builder builder = getBaseURIBuilder("set_interests")
+                .appendQueryParameter("username", user.username)
+                .appendQueryParameter("password", user.password);
+
+        String ids = "";
+        boolean first = true;
+        for (Map.Entry<String, Interest> entry : user.getInterestMap().entrySet()) {
+            if (!first) ids += ",";
+            ids += ((Interest)entry.getValue()).id;
+            first = false;
+        }
+
+        builder.appendQueryParameter("ids", ids);
+
+        new UpdateInterestsRequestTask(this.client).execute(builder.build().toString());
     }
 }
 
@@ -207,5 +226,16 @@ class LoginRequestTask extends RequestTask {
         } else {
             this.activity.loginResponse(status, null);
         }
+    }
+}
+
+class UpdateInterestsRequestTask extends RequestTask {
+    public UpdateInterestsRequestTask(ServerCommunicatable activity) {
+        super(activity);
+    }
+
+    @Override
+    protected void notify(ResponseStatus status, JSONObject json) {
+        this.activity.updateInterestsResponse(status, this.isSuccess());
     }
 }

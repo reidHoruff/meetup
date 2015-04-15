@@ -9,4 +9,5 @@ public interface ServerCommunicatable {
     public void createUserResponse(ResponseStatus status, boolean success, String message);
     public void listAllInterestsResponse(ResponseStatus status, ArrayList<Interest> interests);
     public void loginResponse(ResponseStatus status, MeetupUser user);
+    public void updateInterestsResponse(ResponseStatus status, boolean success);
 }
