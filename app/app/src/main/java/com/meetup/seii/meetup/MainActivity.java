@@ -95,6 +95,7 @@ public class MainActivity extends ServerCommunicatableActivity {
             MeetupSingleton.get().setLoginFailed(true);
             MeetupSingleton.get().setUserIsVerified(false);
             Log.i("SPL", "going to login page with error..");
+            delayToLogin();
         }
     }
 

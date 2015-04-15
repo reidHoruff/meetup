@@ -5,5 +5,4 @@ urlpatterns = patterns('',
 #yo dawg I heard you like apis
     url(r'^api/', 'api.api.api'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^.*$', 'api.views.home'),
 )
