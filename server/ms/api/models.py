@@ -80,7 +80,7 @@ class Usr(models.Model):
           'user': u.dump_basic(),
           })
 
-    return sorted(matches, key=lambda t: t['score'], reverse=True)[:50]
+    return sorted(matches, key=lambda t: t['score'], reverse=True)[:8]
 
   def score(self, int_id_set):
     score = 0

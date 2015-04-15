@@ -18,7 +18,7 @@ public class MainActivity extends ServerCommunicatableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.comm.fetchAllIntersts();
+        //this.comm.fetchAllIntersts();
 
         MeetupSingleton.get().readUser(this);
         MeetupUser user = MeetupSingleton.get().getUser();
@@ -53,7 +53,7 @@ public class MainActivity extends ServerCommunicatableActivity {
      * below but im goin fast...
      */
     public void delayToCreateAccount() {
-        int secondsDelayed = 2;
+        int secondsDelayed = 0;
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 startActivity(new Intent(MainActivity.this, CreateAccountActivity.class));
@@ -63,7 +63,7 @@ public class MainActivity extends ServerCommunicatableActivity {
     }
 
     public void delayToLogin() {
-        int secondsDelayed = 2;
+        int secondsDelayed = 0;
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -73,7 +73,7 @@ public class MainActivity extends ServerCommunicatableActivity {
     }
 
     public void delayToHome() {
-        int secondsDelayed = 2;
+        int secondsDelayed = 0;
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 startActivity(new Intent(MainActivity.this, HomeFragmentActivity.class));
