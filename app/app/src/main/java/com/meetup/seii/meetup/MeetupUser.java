@@ -2,6 +2,8 @@ package com.meetup.seii.meetup;
 
 import org.json.simple.JSONObject;
 
+import java.util.Iterator;
+
 /**
  * Created by reid on 29/03/15.
  */
@@ -35,6 +37,15 @@ public class MeetupUser {
         this.lastName = (String)data.get("lastname");
         this.sex = (String)data.get("sex");
         this.age = (String)data.get("age");
+
+        JSONObject interests = (JSONObject)data.get("interests");
+        Iterator iterator = interests.keySet().iterator();
+
+        while (iterator.hasNext()) {
+            String key = (String)iterator.next();
+            String value = (String)interests.get(key);
+
+        }
     }
 
     public MeetupUser pullFrom(MeetupUser other) {

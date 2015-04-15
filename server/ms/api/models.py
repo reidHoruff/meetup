@@ -59,7 +59,7 @@ class Usr(models.Model):
   def dump_interests(self):
     i = {}
     for interest in self.interests.all():
-      i[interest.id] = interest.name
+      i[str(interest.id)] = interest.name
     return i
 
   def find_friends(self):
@@ -71,7 +71,7 @@ class Usr(models.Model):
     for u in Usr.objects.all():
       s = u.score(int_ids)
       if s:
-        matches.append((u.id, s))
+        matches.append((str(u.id), str(s)))
 
     return sorted(matches, key=lambda t: t[1], reverse=True)[:50]
 
