@@ -71,6 +71,15 @@ public class ServerCommunicator {
         new LoginRequestTask(this.client).execute(builder.build().toString());
     }
 
+    public void loginPrimaryUser() {
+        MeetupUser primaryUser = MeetupSingleton.get().getUser();
+        Uri.Builder builder = getBaseURIBuilder("login")
+                .appendQueryParameter("username", primaryUser.username)
+                .appendQueryParameter("password", primaryUser.password);
+
+        new LoginRequestTask(this.client).execute(builder.build().toString());
+    }
+
     public void updateInterestsOfUser(MeetupUser user) {
         Uri.Builder builder = getBaseURIBuilder("set_interests")
                 .appendQueryParameter("username", user.username)
