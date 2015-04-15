@@ -18,6 +18,8 @@ public class MainActivity extends ServerCommunicatableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.comm.fetchAllIntersts();
+
         MeetupSingleton.get().readUser(this);
         MeetupUser user = MeetupSingleton.get().getUser();
 
@@ -98,5 +100,4 @@ public class MainActivity extends ServerCommunicatableActivity {
             delayToLogin();
         }
     }
-
 }

@@ -127,4 +127,11 @@ public class MeetupSingleton {
         this.allInterests = interests;
     }
 
+    public void clearAllInterests() {
+        this.allInterests.clear();
+    }
+
+    public ArrayList<Interest> getAllInterests() {
+        return this.allInterests;
+    }
 }

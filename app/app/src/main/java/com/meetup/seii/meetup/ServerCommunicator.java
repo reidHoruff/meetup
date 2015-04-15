@@ -22,7 +22,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-
 /**
  * each activity that needs to communicate with the server (and
  * subsiquently implements ServerCommunicator) should have a single instance
@@ -81,6 +80,25 @@ public class ServerCommunicator {
     }
 
     public void updateInterestsOfUser(MeetupUser user) {
+        Uri.Builder builder = getBaseURIBuilder("set_interests")
+                .appendQueryParameter("username", user.username)
+                .appendQueryParameter("password", user.password);
+
+        String ids = "";
+        boolean first = true;
+        for (Map.Entry<String, Interest> entry : user.getInterestMap().entrySet()) {
+            if (!first) ids += ",";
+            ids += ((Interest)entry.getValue()).id;
+            first = false;
+        }
+
+        builder.appendQueryParameter("ids", ids);
+
+        new UpdateInterestsRequestTask(this.client).execute(builder.build().toString());
+    }
+
+    public void updateInterestsOfMainUser() {
+        MeetupUser user = MeetupSingleton.get().getUser();
         Uri.Builder builder = getBaseURIBuilder("set_interests")
                 .appendQueryParameter("username", user.username)
                 .appendQueryParameter("password", user.password);
@@ -212,8 +230,8 @@ class GetAllInterestsRequestTask extends RequestTask {
             while (iterator.hasNext()) {
                 String key = (String)iterator.next();
                 String value = (String)data.get(key);
-                Interest interest = new Interest(key, value);
-                interests.add(interest);
+                MeetupSingleton.get().clearAllInterests();
+                MeetupSingleton.get().addInterest(new Interest(key, value));
             }
             this.activity.listAllInterestsResponse(status, interests);
         } else {
