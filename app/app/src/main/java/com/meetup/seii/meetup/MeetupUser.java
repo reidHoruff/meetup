@@ -2,8 +2,10 @@ package com.meetup.seii.meetup;
 
 import android.util.Log;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -13,8 +15,10 @@ import java.util.Iterator;
 public class MeetupUser {
     public String firstName, lastName, sex, username, password, age;
     private HashMap<String, Interest> interestMap;
+    private ArrayList<MeetupUser> matches;
 
     public MeetupUser() {
+        this.matches = new ArrayList<>();
         this.interestMap = new HashMap<>();
     }
 
@@ -40,11 +44,7 @@ public class MeetupUser {
      */
     public MeetupUser(JSONObject data) {
         this();
-        this.username = (String)data.get("username");
-        this.firstName = (String)data.get("firstname");
-        this.lastName = (String)data.get("lastname");
-        this.sex = (String)data.get("sex");
-        this.age = (String)data.get("age");
+        this.setBasicInfo(data);
 
         JSONObject interests = (JSONObject)data.get("interests");
         Iterator iterator = interests.keySet().iterator();
@@ -55,6 +55,26 @@ public class MeetupUser {
             this.interestMap.put(key, new Interest(key, value));
             Log.i("REST", key + " : " + value);
         }
+
+        JSONArray matches = (JSONArray)data.get("matches");
+
+        for (int i = 0; i < matches.size(); i++) {
+            JSONObject matchData = (JSONObject)matches.get(i);
+            String score = (String)matchData.get("score");
+            JSONObject userData = (JSONObject)matchData.get("user");
+            MeetupUser user = new MeetupUser().setBasicInfo(userData);
+            this.matches.add(user);
+            Log.i("REST", "match: " + user.username);
+        }
+    }
+
+    private MeetupUser setBasicInfo(JSONObject data) {
+        this.username = (String)data.get("username");
+        this.firstName = (String)data.get("firstname");
+        this.lastName = (String)data.get("lastname");
+        this.sex = (String)data.get("sex");
+        this.age = (String)data.get("age");
+        return this;
     }
 
     public MeetupUser pullFrom(MeetupUser other) {

@@ -25,8 +25,7 @@ public class HomeFragmentActivity extends FragmentActivity implements ServerComm
         setContentView(R.layout.activity_home_fragment);
 
         this.comm = new ServerCommunicator(this);
-        Log.i("REST", "updating interests.......");
-        this.comm.updateInterestsOfUser(MeetupSingleton.get().getUser());
+        //this.comm.updateInterestsOfUser(MeetupSingleton.get().getUser());
 
         HomeSectionsPagerAdapter pageAdapter = new HomeSectionsPagerAdapter(getSupportFragmentManager());
         ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);

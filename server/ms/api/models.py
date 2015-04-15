@@ -36,18 +36,22 @@ class Usr(models.Model):
     for interests in interest_objects:
       self.interests.add(interests)
 
-  def dump(self):
+  def dump_basic(self):
     return {
         'username': self.username,
         'id': str(self.id),
         'firstname': self.firstname,
         'lastname': self.lastname,
-        'phoneid': self.phoneid,
         'sex': self.get_sex(),
         'age': str(self.age),
-        'interests': self.dump_interests(),
-        'matches': self.find_friends(),
     }
+
+  def dump(self):
+    basic = self.dump_basic()
+    basic['phoneid'] = self.phoneid
+    basic['interests'] = self.dump_interests()
+    basic['matches'] = self.find_friends()
+    return basic
 
   def get_message_thread(self, other):
     messages = list(Message.objects.filter(sender=self, receiver=other).all()) + list(Message.objects.filter(sender=other, receiver=self).all())
@@ -71,9 +75,12 @@ class Usr(models.Model):
     for u in Usr.objects.all():
       s = u.score(int_ids)
       if s:
-        matches.append((str(u.id), str(s)))
+        matches.append({
+          'score': str(s),
+          'user': u.dump_basic(),
+          })
 
-    return sorted(matches, key=lambda t: t[1], reverse=True)[:50]
+    return sorted(matches, key=lambda t: t['score'], reverse=True)[:50]
 
   def score(self, int_id_set):
     score = 0
