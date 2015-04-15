@@ -14,7 +14,7 @@ public class MeetupSingleton {
     private static MeetupSingleton instance = null;
 
     private MeetupUser user;
-    private ArrayList<Interest> interests, allInterests;
+    private ArrayList<Interest>  allInterests;
 
     private boolean isUserVerified, loginFailed;
 
@@ -22,7 +22,6 @@ public class MeetupSingleton {
         this.user = null;
         this.isUserVerified = false;
         this.loginFailed = false;
-        this.interests = new ArrayList<>();
         this.allInterests = new ArrayList<>();
     }
 
@@ -114,12 +113,7 @@ public class MeetupSingleton {
     }
 
     public void addInterest(Interest i) {
-        this.interests.add(i);
-    }
-
-    public void setInterests(ArrayList<Interest> interests) {
-        this.interests.clear();
-        this.interests = interests;
+        this.allInterests.add(i);
     }
 
     public void setAllInterests(ArrayList<Interest> interests) {

@@ -34,6 +34,7 @@ public class ServerCommunicator {
     HttpClient httpclient = null;
     private ServerCommunicatable client;
     final static String ADDRESS = "http://reidhoruff.webfactional.com";
+//    final static String ADDRESS = "http://192.168.0.15:8000";
 
     public ServerCommunicator(ServerCommunicatable client) {
         this.client = client;
@@ -226,11 +227,13 @@ class GetAllInterestsRequestTask extends RequestTask {
             ArrayList<Interest> interests = new ArrayList<Interest>();
             JSONObject data = (JSONObject)json.get("data");
             Iterator iterator = data.keySet().iterator();
+            MeetupSingleton.get().clearAllInterests();
 
             while (iterator.hasNext()) {
                 String key = (String)iterator.next();
                 String value = (String)data.get(key);
                 MeetupSingleton.get().clearAllInterests();
+                Log.i("REST", "adding activity: " + value);
                 MeetupSingleton.get().addInterest(new Interest(key, value));
             }
             this.activity.listAllInterestsResponse(status, interests);

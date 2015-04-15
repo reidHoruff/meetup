@@ -31,13 +31,20 @@ public class InterestsSectionFragment extends Fragment implements ServerCommunic
             interests.add(i.getValue());
         }
 
-        Log.i("REST", interests.toString());
-
         ArrayAdapter<Interest> adapter = new ArrayAdapter<Interest>(getActivity(), android.R.layout.simple_list_item_1, interests);
         myListView.setAdapter(adapter);
 
+
+        /* you can modify the users interest map and this will send the updates to the server */
+        ServerCommunicator comm = new ServerCommunicator(this);
+        comm.updateInterestsOfMainUser();
+
         return rootView;
     }
+
+    /**
+     * these below must all be implemented...
+     */
 
     public void createUserResponse(ResponseStatus status, boolean success, String message) {
     }
@@ -49,5 +56,6 @@ public class InterestsSectionFragment extends Fragment implements ServerCommunic
     }
 
     public void updateInterestsResponse(ResponseStatus status, boolean success) {
+        Log.i("REST", "interests updated...");
     }
 }

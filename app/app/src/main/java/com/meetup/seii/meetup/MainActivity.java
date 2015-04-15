@@ -18,7 +18,7 @@ public class MainActivity extends ServerCommunicatableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //this.comm.fetchAllIntersts();
+        this.comm.fetchAllIntersts();
 
         MeetupSingleton.get().readUser(this);
         MeetupUser user = MeetupSingleton.get().getUser();
@@ -87,8 +87,12 @@ public class MainActivity extends ServerCommunicatableActivity {
         if (user != null) {
             // to home page...
             Log.i("SPL", "login success..");
-            MeetupSingleton.get().setLoginFailed(false);
-            MeetupSingleton.get().setUserIsVerified(true);
+            MeetupSingleton.get().getUser().pullFrom(user);
+            MeetupSingleton.get()
+                    .setLoginFailed(false)
+                    .setUserIsVerified(true)
+                    .setHasLoggedInBefore(this, true)
+                    .saveUser(this);
             Log.i("SPL", "going to home activity..");
             delayToHome();
         } else {

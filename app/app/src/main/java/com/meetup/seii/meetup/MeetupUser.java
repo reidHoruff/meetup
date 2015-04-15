@@ -53,7 +53,8 @@ public class MeetupUser {
             String key = (String)iterator.next();
             String value = (String)interests.get(key);
             this.interestMap.put(key, new Interest(key, value));
-            Log.i("REST", key + " : " + value);
+            Log.i("REST", key + " : " + value + " here " + this.interestMap.size());
+            Log.i("REST", "id " + System.identityHashCode(this));
         }
 
         JSONArray matches = (JSONArray)data.get("matches");
@@ -84,11 +85,19 @@ public class MeetupUser {
         if (Helper.uslessString(this.password)) this.password = other.password;
         if (Helper.uslessString(this.sex)) this.sex = other.sex;
         if (Helper.uslessString(this.age)) this.age = other.age;
+        this.interestMap.putAll(other.interestMap);
+        this.matches.clear();
+        this.matches.addAll(other.matches);
         return this;
     }
 
+
     public HashMap<String, Interest> getInterestMap() {
         return this.interestMap;
+    }
+
+    public ArrayList<MeetupUser> getMatches() {
+        return this.matches;
     }
 
     /*
