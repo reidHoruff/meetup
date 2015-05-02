@@ -30,10 +30,25 @@ public class InterestsSectionFragment extends Fragment implements ServerCommunic
         for (Map.Entry<String, Interest> i : interestMap.entrySet()) {
             interests.add(i.getValue());
         }
-
+        
+        /* Edited by Brian*/
+        /*
         ArrayAdapter<Interest> adapter = new ArrayAdapter<Interest>(getActivity(), android.R.layout.simple_list_item_1, interests);
         myListView.setAdapter(adapter);
+        */
+        
+        ArrayList<Interest> allPossibleInterests = new ArrayList<>();
+        allPossibleInterests = MeetupSingleton.get().getAllInterests();
 
+        Log.i("REST", "foo" + allPossibleInterests.size());
+
+
+
+
+        ArrayAdapter<Interest> adapter = new ArrayAdapter<Interest>(getActivity(), android.R.layout.simple_list_item_1, allPossibleInterests);
+        myListView.setAdapter(adapter);
+        
+        /*edits done*/
 
         /* you can modify the users interest map and this will send the updates to the server */
         ServerCommunicator comm = new ServerCommunicator(this);
