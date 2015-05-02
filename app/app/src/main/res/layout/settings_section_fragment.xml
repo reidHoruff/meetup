@@ -26,5 +26,19 @@
         android:background="#00c78c"
         android:textColor="#FFFFFF"
         android:onClick="logoutButtonClicked" />
+        
+         <TextView
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Welcome to Meetup!
+
+ Swipe screen to edit/view interests. Swipe again to view your matches.
+
+ You'll be meeting up with cool similar people in no time!"
+        android:id="@+id/textView3"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:layout_weight="0.43" />
 
 </LinearLayout>
