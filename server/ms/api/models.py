@@ -62,7 +62,7 @@ class Usr(models.Model):
 
   def dump_interests(self):
     i = {}
-    for interest in self.interests.all():
+    for interest in self.interests.order_by('name'):
       i[str(interest.id)] = interest.name
     return i
 
