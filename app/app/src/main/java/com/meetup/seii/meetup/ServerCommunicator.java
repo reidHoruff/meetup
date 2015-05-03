@@ -232,7 +232,6 @@ class GetAllInterestsRequestTask extends RequestTask {
             while (iterator.hasNext()) {
                 String key = (String)iterator.next();
                 String value = (String)data.get(key);
-                MeetupSingleton.get().clearAllInterests();
                 Log.i("REST", "adding activity: " + value);
                 MeetupSingleton.get().addInterest(new Interest(key, value));
             }
