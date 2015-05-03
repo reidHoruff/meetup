@@ -113,7 +113,7 @@ def a_set_interests(args, user):
   return fin("interests updated")
 
 def a_list_all_intersts(args):
-  interests = {i.id: i.name for i in Interest.objects.all()}
+  interests = {i.id: i.name for i in Interest.objects.order_by('name')}
   return fin(data=interests)
 
 @validate
