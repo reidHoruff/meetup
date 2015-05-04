@@ -115,4 +115,4 @@ class Message(models.Model):
     return  bool(self.sender.id == me.id)
 
   def __unicode__(self):
-    return "from: %s to: %s" % (self.sender.username, self.receiver.username)
+    return "%s -> %s (%s)" % (self.sender.username, self.receiver.username, self.body)
