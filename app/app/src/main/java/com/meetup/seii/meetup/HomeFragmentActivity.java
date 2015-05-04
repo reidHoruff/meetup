@@ -58,6 +58,7 @@ public class HomeFragmentActivity extends FragmentActivity implements ServerComm
             }
         }
 
+
         @Override
         public int getCount() {
             return 3;

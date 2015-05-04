@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by reid on 29/03/15.
@@ -125,7 +126,8 @@ public class MeetupSingleton {
         this.allInterests.clear();
     }
 
-    public ArrayList<Interest> getAllInterests() {
+    public ArrayList<Interest> getAllInterestsSorted() {
+        Collections.sort(this.allInterests);
         return this.allInterests;
     }
 }

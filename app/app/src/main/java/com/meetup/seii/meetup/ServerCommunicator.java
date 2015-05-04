@@ -89,7 +89,7 @@ public class ServerCommunicator {
         boolean first = true;
         for (Map.Entry<String, Interest> entry : user.getInterestMap().entrySet()) {
             if (!first) ids += ",";
-            ids += ((Interest)entry.getValue()).id;
+            ids += ((Interest)entry.getValue()).getID();
             first = false;
         }
 
@@ -108,9 +108,11 @@ public class ServerCommunicator {
         boolean first = true;
         for (Map.Entry<String, Interest> entry : user.getInterestMap().entrySet()) {
             if (!first) ids += ",";
-            ids += ((Interest)entry.getValue()).id;
+            ids += ((Interest)entry.getValue()).getID();
             first = false;
         }
+
+        Log.i("REST", "IDS: " + ids);
 
         builder.appendQueryParameter("ids", ids);
 
