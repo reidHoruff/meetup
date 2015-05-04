@@ -64,6 +64,9 @@ public class InterestsSectionFragment extends Fragment implements ServerCommunic
     public void updateInterestsResponse(ResponseStatus status, boolean success) {
         Log.i("REST", "interests updated...");
     }
+
+    public void messageSendResponse(ResponseStatus status, boolean success) {
+    }
 }
 
 class InterestsCustomAdapter extends ArrayAdapter<Interest> {
@@ -96,7 +99,6 @@ class InterestsCustomAdapter extends ArrayAdapter<Interest> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder = null;
-        //Log.v("ConvertView", String.valueOf(position));
 
         if (convertView == null) {
             LayoutInflater vi = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

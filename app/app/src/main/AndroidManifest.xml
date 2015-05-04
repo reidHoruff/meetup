@@ -42,6 +42,10 @@
             android:name=".HomeFragmentActivity"
             android:label="@string/title_activity_home_fragment" >
         </activity>
+        <activity
+            android:name=".ProfileChatActivity"
+            android:label="@string/title_activity_profile_chat" >
+        </activity>
     </application>
 
 </manifest>

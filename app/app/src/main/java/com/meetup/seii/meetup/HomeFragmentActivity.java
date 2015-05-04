@@ -90,5 +90,9 @@ public class HomeFragmentActivity extends FragmentActivity implements ServerComm
     public void updateInterestsResponse(ResponseStatus status, boolean success) {
         //...
     }
+
+    public void messageSendResponse(ResponseStatus status, boolean success) {
+        //...
+    }
 }
 

@@ -80,6 +80,17 @@ public class ServerCommunicator {
         new LoginRequestTask(this.client).execute(builder.build().toString());
     }
 
+    public void sendMessage(String username, String body) {
+        MeetupUser primaryUser = MeetupSingleton.get().getUser();
+        Uri.Builder builder = getBaseURIBuilder("send_message")
+                .appendQueryParameter("username", primaryUser.username)
+                .appendQueryParameter("password", primaryUser.password)
+                .appendQueryParameter("rec", username)
+                .appendQueryParameter("body", body);
+
+        new SendMessageRequestTask(this.client).execute(builder.build().toString());
+    }
+
     public void updateInterestsOfUser(MeetupUser user) {
         Uri.Builder builder = getBaseURIBuilder("set_interests")
                 .appendQueryParameter("username", user.username)
@@ -268,5 +279,16 @@ class UpdateInterestsRequestTask extends RequestTask {
     @Override
     protected void notify(ResponseStatus status, JSONObject json) {
         this.activity.updateInterestsResponse(status, this.isSuccess());
+    }
+}
+
+class SendMessageRequestTask extends RequestTask {
+    public SendMessageRequestTask(ServerCommunicatable activity) {
+        super(activity);
+    }
+
+    @Override
+    protected void notify(ResponseStatus status, JSONObject json) {
+        this.activity.messageSendResponse(status, this.isSuccess());
     }
 }

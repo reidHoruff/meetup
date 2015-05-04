@@ -18,4 +18,5 @@
 
     <string name="action_example">Example action</string>
     <string name="title_activity_home_fragment">HomeFragmentActivity</string>
+    <string name="title_activity_profile_chat">ProfileChatActivity</string>
 </resources>

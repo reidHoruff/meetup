@@ -160,13 +160,13 @@ def a_readin(args):
 @validate
 def a_send_message(args, user):
   body = get(args, 'body')
-  rid = get(args, 'rid')
+  rec = get(args, 'rec')
   try:
-    receiver = Usr.objects.get(id=rid)
+    receiver = Usr.objects.get(username=rec)
     user.send_message(body, receiver)
     return fin('message sent')
-  except:
-    return fail('Message failed to send')
+  except Exception as e:
+    return fail(str(e))
 
 @validate
 def a_get_thread(args, user):

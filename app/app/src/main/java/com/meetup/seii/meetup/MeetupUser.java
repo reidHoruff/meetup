@@ -111,6 +111,22 @@ public class MeetupUser {
                 this.password.equals("");
     }
 
+    /*
+    chill bro. this thing only has like 10 elements.
+     */
+    public MeetupUser getMatchByUsername(String username) {
+        for (int i = 0; i < this.matches.size(); i++) {
+            if (this.matches.get(i).username.equals(username)) {
+                return this.matches.get(i);
+            }
+        }
+        return null;
+    }
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+
     public String toString() {
        return "user: "
                + this.username
