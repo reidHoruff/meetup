@@ -11,4 +11,5 @@ public interface ServerCommunicatable {
     public void loginResponse(ResponseStatus status, MeetupUser user);
     public void updateInterestsResponse(ResponseStatus status, boolean success);
     public void messageSendResponse(ResponseStatus status, boolean success);
+    public void getThreadResponse(ResponseStatus status, MessageThread thread);
 }

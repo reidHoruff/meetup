@@ -67,6 +67,9 @@ public class InterestsSectionFragment extends Fragment implements ServerCommunic
 
     public void messageSendResponse(ResponseStatus status, boolean success) {
     }
+
+    public void getThreadResponse(ResponseStatus status, MessageThread thread) {
+    }
 }
 
 class InterestsCustomAdapter extends ArrayAdapter<Interest> {

@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-/**
- * Created by reid on 29/03/15.
- */
 public class MeetupUser {
     public String firstName, lastName, sex, username, password, age;
     private HashMap<String, Interest> interestMap;

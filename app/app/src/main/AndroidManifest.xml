@@ -19,10 +19,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".CreateAccountActivity"
             android:label="@string/title_activity_create_account" >
         </activity>
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
@@ -43,6 +45,7 @@
             android:label="@string/title_activity_home_fragment" >
         </activity>
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".ProfileChatActivity"
             android:label="@string/title_activity_profile_chat" >
         </activity>

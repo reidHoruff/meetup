@@ -19,6 +19,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/chat_list_view" />
+
     <RelativeLayout
         android:id="@+id/InnerRelativeLayout"
         android:layout_width="wrap_content"

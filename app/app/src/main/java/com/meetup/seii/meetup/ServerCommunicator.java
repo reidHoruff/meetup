@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -91,22 +92,14 @@ public class ServerCommunicator {
         new SendMessageRequestTask(this.client).execute(builder.build().toString());
     }
 
-    public void updateInterestsOfUser(MeetupUser user) {
-        Uri.Builder builder = getBaseURIBuilder("set_interests")
-                .appendQueryParameter("username", user.username)
-                .appendQueryParameter("password", user.password);
+    public void fetchThread(String username) {
+        MeetupUser primaryUser = MeetupSingleton.get().getUser();
+        Uri.Builder builder = getBaseURIBuilder("get_thread")
+                .appendQueryParameter("username", primaryUser.username)
+                .appendQueryParameter("password", primaryUser.password)
+                .appendQueryParameter("oun", username);
 
-        String ids = "";
-        boolean first = true;
-        for (Map.Entry<String, Interest> entry : user.getInterestMap().entrySet()) {
-            if (!first) ids += ",";
-            ids += ((Interest)entry.getValue()).getID();
-            first = false;
-        }
-
-        builder.appendQueryParameter("ids", ids);
-
-        new UpdateInterestsRequestTask(this.client).execute(builder.build().toString());
+        new GetThreadRequestTask(this.client).execute(builder.build().toString());
     }
 
     public void updateInterestsOfMainUser() {
@@ -290,5 +283,31 @@ class SendMessageRequestTask extends RequestTask {
     @Override
     protected void notify(ResponseStatus status, JSONObject json) {
         this.activity.messageSendResponse(status, this.isSuccess());
+    }
+}
+
+class GetThreadRequestTask extends RequestTask {
+    public GetThreadRequestTask(ServerCommunicatable activity) {
+        super(activity);
+    }
+
+    @Override
+    protected void notify(ResponseStatus status, JSONObject json) {
+        if (status == ResponseStatus.SUCCESS) {
+            MessageThread thread = new MessageThread();
+            JSONObject data = (JSONObject)json.get("data");
+            Iterator iterator = data.keySet().iterator();
+
+            while (iterator.hasNext()) {
+                JSONArray message = (JSONArray) iterator.next();
+                Boolean fromMainUser = (Boolean) message.get(0);
+                String body = (String) message.get(1);
+                Integer id = (Integer) message.get(2);
+                thread.addMessage(new Message(fromMainUser, body, id));
+            }
+            this.activity.getThreadResponse(status, thread);
+        } else {
+            this.activity.getThreadResponse(status, null);
+        }
     }
 }

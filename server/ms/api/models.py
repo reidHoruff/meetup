@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 class Usr(models.Model):
   username = models.CharField(max_length=20, unique=True, blank=False)
@@ -57,7 +58,12 @@ class Usr(models.Model):
     messages = list(Message.objects.filter(sender=self, receiver=other).all()) + list(Message.objects.filter(sender=other, receiver=self).all())
     thread = list()
     for m in messages:
-      thread.append((m.from_me(self), m.body, str(m.time)))
+      thread.append((
+        m.from_me(self), 
+        m.body, 
+        int(m.id),
+        str(m.time), 
+        ))
     return thread
 
   def dump_interests(self):
@@ -109,7 +115,7 @@ class Message(models.Model):
   sender = models.ForeignKey('Usr', related_name='messages_sent')
   receiver = models.ForeignKey('Usr', related_name='messages_received')
   body = models.CharField(max_length=1000, blank=False)
-  time = models.TimeField(auto_now_add=True)
+  time = models.DateTimeField(auto_now_add=True)
 
   def from_me(self, me):
     return  bool(self.sender.id == me.id)

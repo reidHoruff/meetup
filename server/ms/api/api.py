@@ -170,9 +170,12 @@ def a_send_message(args, user):
 
 @validate
 def a_get_thread(args, user):
-  oid = get(args, 'oid')
-  other = Usr.objects.get(id=oid)
-  return fin(data=user.get_message_thread(other))
+  try:
+    oun = get(args, 'oun')
+    other = Usr.objects.get(username=oun)
+    return fin(data=user.get_message_thread(other))
+  except Exception as e:
+    return fail(str(e))
 
 def a_ping(args):
   return fin('pong')
