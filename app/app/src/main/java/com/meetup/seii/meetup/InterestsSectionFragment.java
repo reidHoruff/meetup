@@ -15,9 +15,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by reidhoruff on 4/12/15.
- */
 public class InterestsSectionFragment extends Fragment implements ServerCommunicatable {
 
     @Override

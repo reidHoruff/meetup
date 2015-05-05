@@ -5,9 +5,6 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
-/**
- * Created by reid on 29/03/15.
- */
 public class ServerCommunicatableActivity extends Activity implements ServerCommunicatable {
 
     protected ServerCommunicator comm;

@@ -6,9 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by reidhoruff on 4/12/15.
- */
 public class SettingsSectionFragment extends Fragment {
 
     @Override

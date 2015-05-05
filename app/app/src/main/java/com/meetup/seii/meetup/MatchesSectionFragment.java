@@ -16,9 +16,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by reidhoruff on 4/12/15.
- */
 public class MatchesSectionFragment extends Fragment {
 
     @Override

@@ -96,3 +96,5 @@ args = {
   'age': '120'
 }
 assert_error(args, 9)
+
+print 'all tests pass.'

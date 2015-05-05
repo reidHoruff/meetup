@@ -1,8 +1,5 @@
 package com.meetup.seii.meetup;
 
-/**
- * Created by reid on 7/04/15.
- */
 public class Interest implements Comparable {
     /*
     its easier to store the id as a string
