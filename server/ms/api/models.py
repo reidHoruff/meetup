@@ -79,12 +79,37 @@ class Usr(models.Model):
 
     matches = []
     for u in Usr.objects.all():
+      if u.id == self.id:
+        continue
       s = u.score(int_ids)
       if s:
         matches.append({
-          'score': str(s),
+          'score': int(s),
           'user': u.dump_basic(),
           })
+
+    reid = Usr.objects.get(username='reid')
+    garrison = Usr.objects.get(username='garrison')
+    brian = Usr.objects.get(username='brian')
+
+    print 'hello'
+    if self.username != 'reid':
+      matches.append({
+        'score': 100,
+        'user': reid.dump_basic(),
+        })
+
+    if self.username != 'brian':
+      matches.append({
+        'score': 100,
+        'user': brian.dump_basic(),
+        })
+
+    if self.username != 'garrison':
+      matches.append({
+        'score': 100,
+        'user': garrison.dump_basic(),
+        })
 
     return sorted(matches, key=lambda t: t['score'], reverse=True)[:8]
 

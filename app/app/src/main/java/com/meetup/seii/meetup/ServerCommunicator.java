@@ -295,15 +295,16 @@ class GetThreadRequestTask extends RequestTask {
     protected void notify(ResponseStatus status, JSONObject json) {
         if (status == ResponseStatus.SUCCESS) {
             MessageThread thread = new MessageThread();
-            JSONObject data = (JSONObject)json.get("data");
-            Iterator iterator = data.keySet().iterator();
+            JSONArray data = (JSONArray)json.get("data");
+            Iterator iterator = data.iterator();
 
             while (iterator.hasNext()) {
                 JSONArray message = (JSONArray) iterator.next();
                 Boolean fromMainUser = (Boolean) message.get(0);
                 String body = (String) message.get(1);
-                Integer id = (Integer) message.get(2);
-                thread.addMessage(new Message(fromMainUser, body, id));
+                Long id = (Long) message.get(2);
+                long idl = id.longValue();
+                thread.addMessage(new Message(fromMainUser, body, (int)idl));
             }
             this.activity.getThreadResponse(status, thread);
         } else {

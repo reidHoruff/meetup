@@ -69,6 +69,7 @@ public class ProfileChatActivity extends ServerCommunicatableActivity {
     public void messageSendResponse(ResponseStatus status, boolean success) {
         if (status == ResponseStatus.SUCCESS || success) {
             Log.i("REST", "message sent succeeded.");
+            this.getServerComm().fetchThread(this.currentMatch.username);
         } else {
             Log.i("REST", "message send failed.");
         }

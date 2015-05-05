@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="22dp"
+        android:background="#007aff"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp" />
 </RelativeLayout>

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * all this activity does is display the splash screen
  * and determine what screen to show next
@@ -84,6 +86,9 @@ public class MainActivity extends ServerCommunicatableActivity {
 
     @Override
     public void loginResponse(ResponseStatus status, MeetupUser user) {
+        /*
+        auto login...
+         */
         if (user != null) {
             // to home page...
             Log.i("SPL", "login success..");
@@ -103,5 +108,8 @@ public class MainActivity extends ServerCommunicatableActivity {
             Log.i("SPL", "going to login page with error..");
             delayToLogin();
         }
+    }
+
+    public void listAllInterestsResponse(ResponseStatus status, ArrayList<Interest> interests) {
     }
 }
