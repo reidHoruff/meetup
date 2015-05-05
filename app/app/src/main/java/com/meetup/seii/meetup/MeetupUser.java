@@ -58,7 +58,7 @@ public class MeetupUser {
 
         for (int i = 0; i < matches.size(); i++) {
             JSONObject matchData = (JSONObject)matches.get(i);
-            String score = (String)matchData.get("score");
+            //String score = (String)matchData.get("score");
             JSONObject userData = (JSONObject)matchData.get("user");
             MeetupUser user = new MeetupUser().setBasicInfo(userData);
             this.matches.add(user);

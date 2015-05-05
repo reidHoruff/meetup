@@ -64,7 +64,7 @@ class Usr(models.Model):
         int(m.id),
         str(m.time), 
         ))
-    return thread
+    return sorted(thread, key=lambda t: t[2], reverse=False)
 
   def dump_interests(self):
     i = {}
