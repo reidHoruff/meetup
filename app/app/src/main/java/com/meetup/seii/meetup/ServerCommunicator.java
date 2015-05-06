@@ -155,7 +155,7 @@ abstract class RequestTask extends AsyncTask<String, String, String>{
                 response.getEntity().writeTo(out);
                 out.close();
                 responseString = out.toString();
-                Log.i("REST", responseString);
+                //Log.i("REST", responseString);
             } else{
                 Log.i("REST", "error----");
                 return null;
@@ -238,7 +238,7 @@ class GetAllInterestsRequestTask extends RequestTask {
             while (iterator.hasNext()) {
                 String key = (String)iterator.next();
                 String value = (String)data.get(key);
-                Log.i("REST", "adding activity: " + value);
+                Log.i("REST", "adding activity to all activities: " + value);
                 MeetupSingleton.get().addInterest(new Interest(key, value));
             }
             this.activity.listAllInterestsResponse(status, interests);

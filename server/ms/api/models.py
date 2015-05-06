@@ -88,6 +88,7 @@ class Usr(models.Model):
           'user': u.dump_basic(),
           })
 
+    """
     reid = Usr.objects.get(username='reid')
     garrison = Usr.objects.get(username='garrison')
     brian = Usr.objects.get(username='brian')
@@ -110,6 +111,7 @@ class Usr(models.Model):
         'score': 100,
         'user': garrison.dump_basic(),
         })
+    """
 
     return sorted(matches, key=lambda t: t['score'], reverse=True)[:20]
 

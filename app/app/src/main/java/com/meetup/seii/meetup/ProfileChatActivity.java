@@ -44,8 +44,24 @@ public class ProfileChatActivity extends ServerCommunicatableActivity {
         );
         myListView.setAdapter(this.chatAdapter);
 
-        Log.i("REST", "fetching thread...");
-        this.getServerComm().fetchThread(currentMatch.username);
+        /*
+        yea this is kind of crappy...
+         */
+        final ServerCommunicator comm = this.getServerComm();
+        new Thread(new Runnable() {
+            public void run(){
+                while (true) {
+                    Log.i("REST", "fetching thread...");
+                    comm.fetchThread(currentMatch.username);
+                    try {
+                        Thread.sleep(2000);
+                    } catch(InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                        Log.i("REST", "[error] sleeping fetch thread...");
+                    }
+                }
+            }
+        }).start();
     }
 
     public void onSendButtonClicked(View view) {
