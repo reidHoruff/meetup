@@ -10,29 +10,79 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MatchesSectionFragment extends Fragment {
+public class MatchesSectionFragment extends Fragment implements ServerCommunicatable {
+
+    private MatchesCustomAdapter matchesAdapter;
+    private ServerCommunicator comm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i("REST", "viewing matches...");
+
         View rootView = inflater.inflate(R.layout.matches_section_fragment, container, false);
         ListView myListView = (ListView) rootView.findViewById(R.id.match_list_view);
 
+        this.comm = new ServerCommunicator(this);
+
         ArrayList<MeetupUser> matches = MeetupSingleton.get().getUser().getMatches();
-        MatchesCustomAdapter adapter = new MatchesCustomAdapter(
+        this.matchesAdapter = new MatchesCustomAdapter(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 matches,
                 getActivity()
         );
-        myListView.setAdapter(adapter);
+        myListView.setAdapter(this.matchesAdapter);
 
         return rootView;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            Log.i("REST", "matches section is visible...");
+            if (MeetupSingleton.get().isMatchesDirty()) {
+                Log.i("REST", "fetching updated matches...");
+            /*
+            fetch updated matches...
+             */
+                this.comm.loginPrimaryUser();
+            } else {
+                Log.i("REST", "matches are clean...");
+            }
+        }
+    }
+
+    /**
+     * these below must all be implemented...
+     */
+    public void createUserResponse(ResponseStatus status, boolean success, String message) {
+    }
+
+    public void listAllInterestsResponse(ResponseStatus status, ArrayList<Interest> interests) {
+    }
+
+    public void loginResponse(ResponseStatus status, MeetupUser user) {
+        Log.i("REST", "user relogged in to fetch matches...");
+        if (status == ResponseStatus.SUCCESS && user != null) {
+            this.matchesAdapter.notifyDataSetChanged();
+        } else {
+            Log.i("REST", "error fetching updated matches...");
+        }
+    }
+
+    public void updateInterestsResponse(ResponseStatus status, boolean success) {
+    }
+
+    public void messageSendResponse(ResponseStatus status, boolean success) {
+    }
+
+    public void getThreadResponse(ResponseStatus status, MessageThread thread) {
     }
 }
 
@@ -89,7 +139,7 @@ class MatchesCustomAdapter extends ArrayAdapter<MeetupUser> {
         });
 
         MeetupUser user = MeetupSingleton.get().getUser().getMatches().get(position);
-        holder.username.setText(user.username);
+        holder.username.setText(user.getFullName());
         holder.user = user;
 
         return convertView;

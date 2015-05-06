@@ -111,7 +111,7 @@ class Usr(models.Model):
         'user': garrison.dump_basic(),
         })
 
-    return sorted(matches, key=lambda t: t['score'], reverse=True)[:8]
+    return sorted(matches, key=lambda t: t['score'], reverse=True)[:20]
 
   def score(self, int_id_set):
     score = 0

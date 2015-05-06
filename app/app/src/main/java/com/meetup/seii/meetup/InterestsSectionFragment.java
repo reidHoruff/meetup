@@ -48,7 +48,6 @@ public class InterestsSectionFragment extends Fragment implements ServerCommunic
     /**
      * these below must all be implemented...
      */
-
     public void createUserResponse(ResponseStatus status, boolean success, String message) {
     }
 
@@ -59,6 +58,7 @@ public class InterestsSectionFragment extends Fragment implements ServerCommunic
     }
 
     public void updateInterestsResponse(ResponseStatus status, boolean success) {
+        MeetupSingleton.get().setMatchesDirty();
         Log.i("REST", "interests updated...");
     }
 

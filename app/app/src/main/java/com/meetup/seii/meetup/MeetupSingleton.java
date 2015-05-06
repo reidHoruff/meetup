@@ -15,6 +15,7 @@ public class MeetupSingleton {
     private ArrayList<Interest>  allInterests;
 
     private boolean isUserVerified, loginFailed;
+    private boolean matchesDirty = true;
 
     private MeetupSingleton() {
         this.user = null;
@@ -126,5 +127,19 @@ public class MeetupSingleton {
     public ArrayList<Interest> getAllInterestsSorted() {
         Collections.sort(this.allInterests);
         return this.allInterests;
+    }
+
+    public MeetupSingleton setMatchesDirty() {
+        this.matchesDirty = true;
+        return this;
+    }
+
+    public MeetupSingleton setMatchesClean() {
+        this.matchesDirty = false;
+        return this;
+    }
+
+    public boolean isMatchesDirty() {
+        return this.matchesDirty;
     }
 }

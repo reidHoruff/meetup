@@ -47,19 +47,12 @@ public class LoginActivity extends ServerCommunicatableActivity {
         if (status != ResponseStatus.SUCCESS) {
             showToast("Server Error");
         } else if (user != null) {
-            /* join user with password and login to user with all other info */
-            MeetupSingleton.get().getUser().pullFrom(user);
             MeetupSingleton.get()
-                .setLoginFailed(false)
-                .setUserIsVerified(true)
                 .setHasLoggedInBefore(this, true)
                 .saveUser(this);
-
             this.hideError();
             startActivity(new Intent(LoginActivity.this, HomeFragmentActivity.class));
         } else {
-            MeetupSingleton.get().setLoginFailed(true);
-            MeetupSingleton.get().setUserIsVerified(false);
             this.showError();
         }
     }

@@ -257,8 +257,17 @@ class LoginRequestTask extends RequestTask {
     protected void notify(ResponseStatus status, JSONObject json) {
         if (status == ResponseStatus.SUCCESS && this.isSuccess()) {
             JSONObject data = (JSONObject)json.get("data");
-            this.activity.loginResponse(status, new MeetupUser(data));
+            MeetupUser user = new MeetupUser(data);
+            MeetupSingleton.get().getUser().pullFrom(user);
+            MeetupSingleton.get()
+                    .setLoginFailed(false)
+                    .setUserIsVerified(true)
+                    .setMatchesClean();
+            this.activity.loginResponse(status, MeetupSingleton.get().getUser());
         } else {
+            MeetupSingleton.get()
+                    .setLoginFailed(true)
+                    .setUserIsVerified(false);
             this.activity.loginResponse(status, null);
         }
     }
