@@ -27,8 +27,9 @@
         android:textColor="#FFFFFF"
         android:onClick="logoutButtonClicked" />
         
-         <TextView
-        android:layout_width="206dp"
+     <TextView
+        android:layout_width="275dp"
+        android:textSize="22dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Welcome to Meetup!
